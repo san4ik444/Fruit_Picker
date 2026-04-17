@@ -1,0 +1,287 @@
+📦 ПОШАГОВАЯ ИНСТРУКЦИЯ: ЗАПУСК ПРОЕКТА НА НОВОМ ПК ИЗ ZIP-АРХИВА
+🎯 ЧТО ВАМ ПОНАДОБИТСЯ
+Интернет (для скачивания библиотек и YOLOv5)
+
+10-15 минут времени
+
+Административные права на компьютере (для установки Python)
+
+📋 ПУНКТ 1: ПРОВЕРЬТЕ НАЛИЧИЕ PYTHON
+1.1 Откройте командную строку:
+Нажмите Win + R
+
+Введите cmd
+
+Нажмите Enter
+
+1.2 Проверьте версию Python:
+cmd
+python --version
+Если показывает: Python 3.9.x или Python 3.10.x → ✅ переходите к Пункту 2
+
+Если ошибка: 'python' not recognized → ❌ нужно установить Python
+
+1.3 Установите Python (если нет):
+Скачайте Python 3.9: https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe
+
+Запустите установщик
+
+✅ ОБЯЗАТЕЛЬНО отметьте "Add Python to PATH"
+
+Нажмите "Install Now"
+
+Дождитесь окончания
+
+Нажмите "Close"
+
+Перезагрузите компьютер
+
+📋 ПУНКТ 2: РАСПАКУЙТЕ ZIP-АРХИВ
+2.1 Найдите ваш zip-файл
+Обычно он называется apple_detector.zip или apple_detector_clean.zip
+
+2.2 Распакуйте в удобное место
+Лучшие места для распаковки:
+
+✅ C:\Users\Ваше_имя\Desktop\apple_detector (рабочий стол)
+
+✅ C:\apple_detector (корень диска C)
+
+✅ D:\apple_detector (если есть второй диск)
+
+Как распаковать:
+
+Нажмите правой кнопкой на zip-файле
+
+Выберите "Извлечь всё..."
+
+Укажите путь (например, C:\apple_detector)
+
+Нажмите "Извлечь"
+
+2.3 Проверьте, что распаковалось:
+Откройте распакованную папку. Там должны быть файлы:
+
+text
+apple_detector/
+├── fast_apple_detector.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── (возможно другие файлы)
+ВАЖНО: Папок venv и yolov5 внутри быть НЕ ДОЛЖНО!
+
+📋 ПУНКТ 3: ОТКРОЙТЕ КОМАНДНУЮ СТРОКУ В ПАПКЕ ПРОЕКТА
+3.1 Самый простой способ:
+Откройте распакованную папку
+
+В адресной строке (сверху) нажмите один раз
+
+Введите cmd и нажмите Enter
+
+Откроется командная строка, уже в правильной папке!
+
+3.2 Проверьте, что вы в правильной папке:
+cmd
+dir
+Должны увидеть ваш файл fast_apple_detector.py
+
+📋 ПУНКТ 4: СОЗДАЙТЕ ВИРТУАЛЬНОЕ ОКРУЖЕНИЕ
+4.1 Создайте venv:
+cmd
+python -m venv venv
+⏱️ Занимает 10-20 секунд
+
+4.2 Дождитесь появления папки venv:
+cmd
+dir
+Должна появиться папка venv
+
+📋 ПУНКТ 5: АКТИВИРУЙТЕ ВИРТУАЛЬНОЕ ОКРУЖЕНИЕ
+Для Windows:
+cmd
+venv\Scripts\activate
+Должно появиться: (venv) C:\...>
+
+Для Mac/Linux:
+bash
+source venv/bin/activate
+Проверка активации:
+cmd
+where python
+Должен показывать путь ВНУТРИ папки venv
+
+📋 ПУНКТ 6: УСТАНОВИТЕ БИБЛИОТЕКИ
+6.1 Установите PyTorch (основа для нейросетей):
+cmd
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+⏱️ Занимает 2-3 минуты
+
+6.2 Установите остальные библиотеки из requirements.txt:
+cmd
+pip install -r requirements.txt
+⏱️ Занимает 1-2 минуты
+
+6.3 Проверьте установку:
+cmd
+pip list
+Должны увидеть: torch, torchvision, opencv-python, numpy
+
+📋 ПУНКТ 7: СКАЧАЙТЕ YOLOv5
+7.1 Клонируйте репозиторий:
+cmd
+git clone https://github.com/ultralytics/yolov5.git
+Если Git не установлен:
+
+Скачайте Git: https://git-scm.com/download/win
+
+Установите (все настройки по умолчанию)
+
+Перезапустите командную строку
+
+Повторите команду
+
+7.2 Перейдите в папку YOLOv5:
+cmd
+cd yolov5
+7.3 Установите зависимости YOLOv5:
+cmd
+pip install -r requirements.txt
+⏱️ Занимает 3-5 минут
+
+7.4 Вернитесь в корневую папку:
+cmd
+cd ..
+📋 ПУНКТ 8: СКАЧАЙТЕ ВЕСА МОДЕЛИ
+8.1 Скачайте модель YOLOv5n (4 MB - самая быстрая):
+cmd
+curl -L -o yolov5\yolov5n.pt https://github.com/ultralytics/yolov5/releases/download/v6.0/yolov5n.pt
+8.2 Проверьте, что файл скачался:
+cmd
+dir yolov5\yolov5n.pt
+Должен быть файл размером ~4 MB
+
+Если curl не работает - скачайте вручную:
+
+Откройте браузер
+
+Перейдите по ссылке: https://github.com/ultralytics/yolov5/releases/download/v6.0/yolov5n.pt
+
+Файл скачается
+
+Переместите его в папку yolov5
+
+📋 ПУНКТ 9: ЗАПУСТИТЕ ПРОГРАММУ
+9.1 Запустите детектор:
+cmd
+python fast_apple_detector.py
+9.2 Что должно произойти:
+Появится сообщение [INFO] Loading YOLOv5 model...
+
+Через 5-10 секунд откроется окно с видеопотоком
+
+Зелёные рамки появятся вокруг яблок
+
+9.3 Управление:
+Q - выход из программы
+
+S - сохранить текущий кадр
+
+⚡ БЫСТРЫЙ ВАРИАНТ (ВСЕ КОМАНДЫ СРАЗУ)
+Скопируйте и вставьте этот блок в командную строку:
+
+cmd
+cd /d C:\apple_detector
+python -m venv venv
+venv\Scripts\activate
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+pip install -r requirements.txt
+git clone https://github.com/ultralytics/yolov5.git
+cd yolov5
+pip install -r requirements.txt
+cd ..
+curl -L -o yolov5\yolov5n.pt https://github.com/ultralytics/yolov5/releases/download/v6.0/yolov5n.pt
+python fast_apple_detector.py
+🐛 РЕШЕНИЕ ПРОБЛЕМ
+Проблема 1: pip не устанавливает библиотеки
+Решение: Обновите pip
+
+cmd
+python -m pip install --upgrade pip
+Проблема 2: git clone не работает
+Решение: Скачайте YOLOv5 вручную
+
+Откройте: https://github.com/ultralytics/yolov5/archive/refs/heads/master.zip
+
+Распакуйте
+
+Переименуйте папку в yolov5
+
+Переместите в папку проекта
+
+Проблема 3: Камера не открывается
+Решение: Измените индекс камеры в коде
+
+python
+# Найдите в fast_apple_detector.py строку:
+cap = cv2.VideoCapture(0)
+# Замените на:
+cap = cv2.VideoCapture(1)  # или 2, 3...
+Проблема 4: Ошибка ModuleNotFoundError: No module named 'utils'
+Решение: Проверьте структуру папок
+
+cmd
+dir
+# Должна быть папка yolov5
+dir yolov5
+# Должны быть папки models и utils
+✅ ФИНАЛЬНЫЙ ЧЕК-ЛИСТ
+После всех шагов проверьте:
+
+Папка venv существует
+
+В командной строке есть (venv) в начале
+
+Папка yolov5 существует
+
+Файл yolov5\yolov5n.pt существует (4 MB)
+
+Программа запускается без ошибок
+
+Видно окно с видеопотоком
+
+Зелёные рамки появляются вокруг яблок
+
+📦 ЧТО ДЕЛАТЬ, ЕСЛИ НЕТ ИНТЕРНЕТА
+Если на новом ПК нет интернета, можно перенести всё с флешки:
+
+На старом ПК скопируйте папку C:\Aple_detector целиком (со всеми файлами)
+
+Вставьте флешку в новый ПК
+
+Скопируйте папку на рабочий стол
+
+Запустите fast_apple_detector.py
+
+Но учтите: Размер будет большой (~500 MB из-за venv и yolov5)
+
+🎯 ИТОГО: МИНИМАЛЬНЫЙ НАБОР ДЕЙСТВИЙ
+Если кратко, на новом ПК нужно сделать:
+
+✅ Распаковать zip
+
+✅ python -m venv venv
+
+✅ venv\Scripts\activate
+
+✅ pip install -r requirements.txt
+
+✅ git clone https://github.com/ultralytics/yolov5.git
+
+✅ cd yolov5 && pip install -r requirements.txt && cd ..
+
+✅ Скачать модель yolov5n.pt в папку yolov5
+
+✅ python fast_apple_detector.py
+
+Готово! Программа работает! 🎉
